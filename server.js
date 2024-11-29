@@ -21,7 +21,30 @@ connectCloudinary();
 
 // middlewares
 app.use(express.json());
-app.use(cors());
+// Define the list of allowed origins
+const allowedOrigins = [
+  "https://artnakkk-frontend-admin.vercel.app/",
+  "http://localhost:5175", // For local development
+  "http://localhost:5176", // For local development
+];
+
+// Configure CORS
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g., mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow the origin
+      } else {
+        callback(new Error("Not allowed by CORS")); // Block the origin
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // Allow cookies or Authorization headers
+  })
+);
 
 // api endpoints
 app.use("/api/user", userRouter);
