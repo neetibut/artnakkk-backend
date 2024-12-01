@@ -24,6 +24,7 @@ app.use(express.json());
 // Define the list of allowed origins
 const allowedOrigins = [
   "https://artnakkk-frontend-admin.vercel.app",
+  "http://localhost:5174", // For local development
   "http://localhost:5175", // For local development
   "http://localhost:5176", // For local development
 ];
@@ -34,7 +35,6 @@ app.use(
     origin: (origin, callback) => {
       // Allow requests with no origin (e.g., mobile apps or curl)
       if (!origin) return callback(null, true);
-
       if (allowedOrigins.includes(origin)) {
         callback(null, true); // Allow the origin
       } else {
