@@ -24,6 +24,9 @@ productRouter.post(
 productRouter.post("/remove", adminAuth, removeProduct);
 productRouter.post("/single", singleProduct);
 productRouter.get("/list", listProducts);
+// head res
+productRouter.head("/remove", (req, res) => res.sendStatus(200));
+productRouter.head("/single", (req, res) => res.sendStatus(200));
 productRouter.head("/list", (req, res) => res.sendStatus(200));
 
 export default productRouter;
